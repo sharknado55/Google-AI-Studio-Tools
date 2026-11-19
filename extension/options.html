@@ -34,6 +34,41 @@
 <h2>Always-allowed tools</h2>
 <p>These run without asking. Keep this list to tools that only read data.</p>
 <div id="auto"></div>
+
+<h2>Behaviour</h2>
+<label class="tool"><input type="checkbox" id="autoSend"> Press Run for me after an approved tool call</label>
+<p>Off by default: the result is placed in the message box and you press Run. Leaving it off keeps every message to Google sent by you.</p>
+<label class="tool"><input type="checkbox" id="autoAll"> Allow every tool automatically (no approval dialog)</label>
+<p><strong>Risky.</strong> Every call runs as soon as Gemini writes it, including writes, deletes and code execution, and memory saves. A web page or file the model reads could trick it into running a harmful tool. The MCP pill shows <code>MCP (auto)</code> while this is on. With auto-send on as well, the chat runs by itself with no clicks from you, which looks most like a bot to Google.</p>
+<label class="tool"><input type="checkbox" id="autoReadOnly"> Run tools the server marks read-only without asking</label>
+<p>Uses the server's own <code>readOnlyHint</code> (for example <code>read_file</code> and <code>list_directory</code> on the filesystem server). Writes still ask. You still press Run unless auto-send is on.</p>
+<label class="tool"><input type="checkbox" id="fastScroll"> Speed up long chats (skip drawing off-screen messages)</label>
+<p>Only changes how this browser draws the page. If scrolling jumps oddly, turn it off and reload AI Studio.</p>
+<label class="tool">Shorten tool results longer than <input type="number" id="compressChars" min="0" step="500" style="width:90px"> characters</label>
+<p>The full result stays in this browser. Gemini reads more of it with <code>_meta.retrieve</code>, which never leaves your computer. 0 turns shortening off.</p>
+<div class="row"><button id="saveSettings">Save behaviour</button></div>
+
+<h2>Skills</h2>
+<p>A skill is a folder with a <code>SKILL.md</code> (a <code>name:</code> and <code>description:</code> header, then instructions) and optional reference files such as <code>references/guide.md</code>. Only names and descriptions go into the inserted text. Gemini loads a skill's instructions when a task matches it, and opens its reference files when the instructions point to them.</p>
+<div class="row">
+  <button id="importFolder" type="button" class="primary">Import skill folder</button>
+  <button id="importSkills" type="button">Import single SKILL.md files</button>
+  <input type="file" id="skillFolder" webkitdirectory hidden>
+  <input type="file" id="skillFiles" accept=".md,text/markdown,text/plain" multiple hidden>
+</div>
+<p>Pick one skill's folder, or a parent folder holding many skills: every folder inside it that has a <code>SKILL.md</code> becomes a skill. Text files up to 1 MB are kept; images and other binary files are skipped. Importing a skill again replaces it.</p>
+<div id="skills"></div>
+
+<h2>Project memory</h2>
+<p>Facts kept per project and added to the inserted text. Gemini can ask to add one (you approve it). Pick the project from the MCP menu in AI Studio.</p>
+<div class="row">
+  <select id="project" aria-label="Project"></select>
+  <button id="newProject">New project</button>
+  <button id="delProject">Delete project</button>
+</div>
+<textarea id="memText" spellcheck="false" aria-label="Memory for the selected project" style="height:180px"></textarea>
+<div class="row"><button id="saveMemory" class="primary">Save memory</button></div>
+<pre id="out2" role="status"></pre>
 <script src="options.js"></script>
 </body>
 </html>
