@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Mock AI Studio</title>
+<style>body{font:15px system-ui;max-width:700px;margin:20px auto;padding:0 16px} ms-chat-turn{display:block;border:1px solid #ccc;margin:8px 0;padding:8px;white-space:pre-wrap} textarea{width:100%;height:80px}</style>
+</head>
+<body>
+<div id="chat">
+  <ms-chat-turn><div class="user">Hello, first message of the mock chat.</div></ms-chat-turn>
+</div>
+<textarea aria-label="Type something or tab to choose an example prompt"></textarea>
+<button class="run-button" aria-label="Run">Run</button>
+<script>
+// Fake chrome API: storage in memory, runtime answers like background.js would.
+const store = { memory: { active: 'default', projects: { default: '- likes short answers', other: '' } } };
+window.sent = [];
+window.chrome = {
+  storage: { local: {
+    get: async (k) => { const o = {}; for (const x of [].concat(k)) if (x in store) o[x] = JSON.parse(JSON.stringify(store[x])); return o; },
+    set: async (o) => Object.assign(store, JSON.parse(JSON.stringify(o))),
+    remove: async (k) => { for (const x of [].concat(k)) delete store[x]; },
+  } },
+  runtime: { sendMessage: async (m) => {
+    window.sent.push(m);
+    if (m.type === 'toolPrompt') return { ok: true, prompt: 'TOOL PROMPT' };
+    if (m.type === 'call') return { ok: true, text: 'echo: ' + JSON.stringify(m.args) };
+    if (m.type === 'remember') return { ok: true, text: 'Saved.' };
+    if (m.type === 'meta') return { ok: true, text: 'meta ok' };
+    return { ok: false, error: 'unknown' };
+  } },
+};
+window.store = store;
+// Mock "model reply" helper used by the test driver.
+window.addModel = (text) => {
+  const t = document.createElement('ms-chat-turn');
+  t.innerHTML = '<div class="model"></div>';
+  t.firstChild.textContent = text;
+  document.getElementById('chat').append(t);
+  return t;
+};
+window.runs = 0;
+document.querySelector('.run-button').onclick = () => {
+  const ta = document.querySelector('textarea');
+  const t = document.createElement('ms-chat-turn');
+  t.innerHTML = '<div class="user"></div>';
+  t.firstChild.textContent = ta.value;
+  document.getElementById('chat').append(t);
+  ta.value = '';
+  window.runs++;
+};
+</script>
+<script src="../extension/content.js"></script>
+</body>
+</html>
