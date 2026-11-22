@@ -1,3 +1,5 @@
+![AI Studio MCP Bridge: MCP tools, skills, compaction and project memory for Gemini in Google AI Studio](assets/banner.png)
+
 # AI Studio MCP Bridge
 
 A Chrome extension that lets Gemini in [Google AI Studio](https://aistudio.google.com)

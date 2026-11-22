@@ -1,0 +1,145 @@
+<!doctype html>
+<!--
+  Banner for the README and the GitHub social preview.
+  Open as-is for the 1920x1080 banner; add ?social for the 2:1 social preview layout.
+  Render with assets/render.sh (headless Chrome).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI Studio MCP banner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;800&family=Figtree:wght@500;600;700&display=block" rel="stylesheet">
+<style>
+  :root {
+    --bg: #070b16;
+    --glow: #1c3f9e;
+    --glow2: #0f6a8c;
+    --accent: #a9c8ff;
+    --accent-ink: #0b1430;
+    --tile: #5b8cff;
+    --tile2: #3f6be0;
+    --text: #f3f6fb;
+    --pill: #f3f6fb;
+    --pill-ink: #0d1324;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body.social { height: 960px; }
+  .card {
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+    background:
+      radial-gradient(1100px 760px at 78% 58%, var(--glow) 0%, transparent 62%),
+      radial-gradient(700px 520px at 100% 100%, var(--glow2) 0%, transparent 70%),
+      radial-gradient(900px 600px at 20% 30%, #0b1330 0%, transparent 70%),
+      var(--bg);
+    color: var(--text);
+    font-family: Figtree, system-ui, sans-serif;
+  }
+  /* dot grid, strongest on the right */
+  .card::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(169, 200, 255, .22) 1.6px, transparent 1.8px);
+    background-size: 16px 16px;
+    -webkit-mask-image: linear-gradient(100deg, transparent 30%, #000 75%);
+            mask-image: linear-gradient(100deg, transparent 30%, #000 75%);
+  }
+  .card > * { position: absolute; }
+
+  .title {
+    left: 96px; top: 52px;
+    font: 800 196px/1 Unbounded, sans-serif; letter-spacing: -4px;
+  }
+  .subtitle {
+    left: 104px; top: 292px;
+    font: 300 92px/1 Unbounded, sans-serif; letter-spacing: 10px;
+  }
+  .highlights { left: 96px; top: 500px; display: flex; flex-wrap: wrap; gap: 18px 16px; width: 1060px; align-items: center; }
+  .highlights b { font: 700 42px/1 Figtree, sans-serif; margin-right: 14px; }
+  .pill {
+    background: var(--pill); color: var(--pill-ink);
+    font: 600 34px/1 Figtree, sans-serif; padding: 16px 28px; border-radius: 999px;
+  }
+  .pill.plus { width: 66px; height: 66px; padding: 0; display: grid; place-items: center; font-size: 40px; }
+
+  .badge { right: 30px; top: 30px; width: 440px; height: 440px; }
+  .version {
+    right: 100px; bottom: 150px;
+    font: 800 250px/1 Unbounded, sans-serif; letter-spacing: -6px; color: var(--accent);
+  }
+  .cta { right: 92px; bottom: 76px; font: 600 44px/1 Unbounded, sans-serif; color: var(--accent); letter-spacing: 1px; }
+  .link {
+    left: 76px; bottom: 54px; display: flex; align-items: center; gap: 22px;
+    background: var(--pill); color: #2e5fd6; border-radius: 999px; padding: 14px 44px 14px 14px;
+    font: 600 40px/1 Figtree, sans-serif;
+  }
+  .link svg { width: 72px; height: 72px; }
+
+  /* 2:1 social preview: same design, tighter vertical rhythm */
+  body.social .title { top: 44px; }
+  body.social .subtitle { top: 278px; }
+  body.social .highlights { top: 470px; }
+  body.social .version { bottom: 150px; font-size: 230px; }
+  body.social .cta { bottom: 82px; }
+  body.social .link { bottom: 52px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="title">AI Studio</div>
+  <div class="subtitle">MCP Bridge</div>
+
+  <div class="highlights">
+    <b>Highlights:</b>
+    <span class="pill">MCP Tools for Gemini</span>
+    <span class="pill">Skills</span>
+    <span class="pill">Compaction</span>
+    <span class="pill">Project Memory</span>
+    <span class="pill">Smart Tool Results</span>
+    <span class="pill plus">+</span>
+  </div>
+
+  <svg class="badge" viewBox="0 0 440 440" aria-hidden="true">
+    <path id="scallop" fill="var(--accent)"/>
+    <rect x="100" y="100" width="240" height="240" rx="64" fill="var(--accent-ink)"/>
+    <rect x="124" y="124" width="192" height="192" rx="44" fill="var(--tile)"/>
+    <!-- plug -->
+    <g fill="none" stroke="var(--accent-ink)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M196 160v34M244 160v34"/>
+      <path d="M176 194h88v26a44 44 0 0 1-88 0z" fill="var(--accent)"/>
+      <path d="M220 264v24c0 14 10 22 24 22h18"/>
+    </g>
+    <!-- sparkle -->
+    <path d="M286 146c3 14 8 19 22 22-14 3-19 8-22 22-3-14-8-19-22-22 14-3 19-8 22-22z" fill="var(--accent)"/>
+  </svg>
+
+  <div class="version">v0.4</div>
+  <div class="cta">Download on GitHub →</div>
+
+  <div class="link">
+    <svg viewBox="0 0 72 72" aria-hidden="true">
+      <rect width="72" height="72" rx="18" fill="var(--accent-ink)"/>
+      <g fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M30 18v10M42 18v10"/>
+        <path d="M24 28h24v8a12 12 0 0 1-24 0z"/>
+        <path d="M36 48v6c0 4 3 6 7 6h5"/>
+      </g>
+    </svg>
+    github.com/sharknado55/google-ai-studio-mcp
+  </div>
+</div>
+<script>
+  if (location.search.includes('social')) document.body.classList.add('social');
+  // Wavy "seal" shape behind the icon.
+  const n = 12, R = 196, a = 14, cx = 220, cy = 220, steps = 720;
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const t = (i / steps) * Math.PI * 2;
+    const r = R + a * Math.cos(n * t);
+    d += (i ? 'L' : 'M') + (cx + r * Math.cos(t)).toFixed(2) + ' ' + (cy + r * Math.sin(t)).toFixed(2);
+  }
+  document.getElementById('scallop').setAttribute('d', d + 'Z');
+</script>
+</body>
+</html>
