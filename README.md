@@ -40,7 +40,7 @@ otherwise in settings.
 
 ## Install
 
-Get the code: download the [latest release zip](https://github.com/sharknado55/google-ai-studio-mcp/releases/tag/zip)
+Get the code: download the [latest release zip](https://github.com/sharknado55/Google-AI-Studio-Tools/releases/tag/zip)
 and unzip it, or clone the repo.
 
 ### 1. Load the extension
